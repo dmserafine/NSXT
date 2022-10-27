@@ -9,20 +9,31 @@
 import csv
 import requests
 import json
+import getpass
 
 # uncomment for user input of NSX LM URL, Username and password
-# urlNSX = input("Enter the FQDN of the NSX manager API? ")
-# userNSX = input("Enter the Policy API username for NSX? ")
-# passwordNSX = input("Enter the password for the NSX user? ")
+# urlNSX = input("Enter the FQDN of the NSX manager API: ")
+# userNSX = input("Enter the Policy API username for NSX: ")
+# passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
 urlNSX = 'https://nsxtlm1g.serafine.home'
 userNSX = 'admin'
 passwordNSX ='brg*zwc1vwm3kuc2XNR'
 
-# uncomment to specify domain_id of VMs
-# domainID = input("Enter the domain of the virtual machines?")
+getLDomainsUrl = urlNSX + "/policy/api/v1/infra/domains"
+	
+getDomains = requests.get(getLDomainsUrl, auth=(userNSX,passwordNSX), verify = False)
+domainData = getDomains.json()
+
+for domain in domainData['results']:
+	domainName = domain['display_name']
+	domainID = domain['id']
+
+	print(domainName, domainID)
+
 domainID = 'default'
 
-
+# uncomment to specify domain_id of VMs
+# domainID = input("Enter the domain of the virtual machines: ")
 
 data_file = open('vmtestdata.txt','r')
 
