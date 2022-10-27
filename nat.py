@@ -9,11 +9,12 @@
 
 
 import os
+import getpass
 
-routerID = input("Enter the ID of the Tier1 router? ")
-urlNSX = input("Enter the FQDN of the NSX manager API? ")
-userNSX = input("Enter the Policy API username for NSX? ")
-passwordNSX = input("Enter the password for the NSX user? ")
+routerID = input("Enter the ID of the Tier1 router: ")
+urlNSX = input("Enter the FQDN of the NSX manager API: ")
+userNSX = input("Enter the Policy API username for NSX: ")
+passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
 
 gatewayType = ()
 routerType = ()
