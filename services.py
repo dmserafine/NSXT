@@ -27,8 +27,8 @@ for line in data_lines:
 	serviceEntries = len(line) - 1
 	print("Service name: ",ServiceName," ","Service Entries: ",serviceEntries)
 	
-	addService = urlNSX + "/policy/api/v1/global-infra/services/" + ServiceName
-	appendService = urlNSX + "/policy/api/v1/global-infra/services/" + ServiceName
+	addService = urlNSX + "/global-manager/api/v1/global-infra/services/" + ServiceName
+	appendService = urlNSX + "/global-manager/v1/global-infra/services/" + ServiceName
 
 	Headers = {"Content-Type": "application/json"}
 
@@ -39,22 +39,22 @@ for line in data_lines:
 		port = item[3:]
 		portNum = port.strip("()")
 		data = {
-			  "description": ServiceName,
-			  "display_name": ServiceName,
-			  "_revision": 1,
-			  "service_entries": [
-			      {
-			          "resource_type": "L4PortSetServiceEntry",
-			          "display_name": ServiceName + "Entry",
-			          "destination_ports": [
-			              portNum
-			          ],
-			          "l4_protocol": proto
-			      }
-			  ]
-			}			
-		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-		print(ServiceName," proto: ",proto," port: ",portNum)
+				  "description": ServiceName,
+				  "display_name": ServiceName,
+				  "_revision": 0,
+				  "service_entries": [
+				      {
+				          "resource_type": "L4PortSetServiceEntry",
+				          "display_name": item,
+				          "destination_ports": [
+				              portNum
+				          ],
+				          "l4_protocol": proto
+				      }
+				  ]
+				}			
+		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
+		print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
 		print(svcAdd.text)
 		print(addService)
 
@@ -65,36 +65,13 @@ for line in data_lines:
 		port = item[3:]
 		portNum = port.strip("()")
 		data = {
-			  "description": ServiceName,
-			  "display_name": ServiceName,
-			  "_revision": 1,
-			  "service_entries": [
-			      {
-			          "resource_type": "L4PortSetServiceEntry",
-			          "display_name": ServiceName + "Entry",
-			          "destination_ports": [
-			              portNum
-			          ],
-			          "l4_protocol": proto
-			      }
-			  ]
-			}
-
-#		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-		print(ServiceName," proto: ",proto," port: ",portNum)
-
-		for item in line[1:]:
-			proto = item[0:3]
-			port = item[3:]
-			portNum = port.strip("()")
-			data = {
 				  "description": ServiceName,
 				  "display_name": ServiceName,
-				  "_revision": 2,
+				  "_revision": 0,
 				  "service_entries": [
 				      {
 				          "resource_type": "L4PortSetServiceEntry",
-				          "display_name": ServiceName + "Entry",
+				          "display_name": item,
 				          "destination_ports": [
 				              portNum
 				          ],
@@ -102,8 +79,31 @@ for line in data_lines:
 				      }
 				  ]
 				}		
+
+		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
+		print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
+
+		for item in line[1:]:
+			proto = item[0:3]
+			port = item[3:]
+			portNum = port.strip("()")
+			data = {
+					  "description": ServiceName,
+					  "display_name": ServiceName,
+					  "_revision": 0,
+					  "service_entries": [
+					      {
+					          "resource_type": "L4PortSetServiceEntry",
+					          "display_name": item,
+					          "destination_ports": [
+					              portNum
+					          ],
+					          "l4_protocol": proto
+					      }
+					  ]
+					}		
 			
-#			svcAdd = requests.patch(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)	
-			print(ServiceName," proto: ",proto," port: ",portNum)
+			svcAdd = requests.put(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)	
+			print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
 
 data_file.close()
