@@ -11,9 +11,12 @@ import json
 import requests
 
 # uncomment for user input of NSX LM URL, Username and password
-urlNSX = input("Enter the FQDN of the NSX manager API: ")
-userNSX = input("Enter the Policy API username for NSX: ")
-passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
+# urlNSX = input("Enter the FQDN of the NSX manager API: ")
+# userNSX = input("Enter the Policy API username for NSX: ")
+# passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
+urlNSX = 'https://nsxtgm.serafine.home'
+userNSX = 'admin'
+passwordNSX ='brg*zwc1vwm3kuc2XNR'
 
 data_file = open('servicedata.txt','r')
 
@@ -24,46 +27,51 @@ for line in data_lines:
 	serviceEntries = len(line) - 1
 	print("Service name: ",ServiceName," ","Service Entries: ",serviceEntries)
 	
-	addService = urlNSX + "/policy/api/v1/infra/services/" + ServiceName
-	appendService = urlNSX + "/policy/api/v1/infra/services/" + ServiceName
+	addService = urlNSX + "/policy/api/v1/global-infra/services/" + ServiceName
+	appendService = urlNSX + "/policy/api/v1/global-infra/services/" + ServiceName
+
+	Headers = {"Content-Type": "application/json"}
 
 # 	Routine to handle service with only one service entry
-	item = line[1]
-	proto = item[0:3]
-	port = item[3:]
-	portNum = port.strip("()")
-	data = {
-		  "description": ServiceName,
-		  "display_name": ServiceName,
-		  "_revision": 0,
-		  "service_entries": [
-		      {
-		          "resource_type": "L4PortSetServiceEntry",
-		          "display_name": "MyHttpEntry",
-		          "destination_ports": [
-		              portNum
-		          ],
-		          "l4_protocol": proto
-		      }
-		  ]
-		}			
-	svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-	print(ServiceName," proto: ",proto," port: ",portNum)
-	exit
-# 	Routine to handle service with more than one service entry
-	else:
-		item = line[1]:
+	if serviceEntries == 1:
+		item = line[1]
 		proto = item[0:3]
 		port = item[3:]
 		portNum = port.strip("()")
 		data = {
 			  "description": ServiceName,
 			  "display_name": ServiceName,
-			  "_revision": 0,
+			  "_revision": 1,
 			  "service_entries": [
 			      {
 			          "resource_type": "L4PortSetServiceEntry",
-			          "display_name": "MyHttpEntry",
+			          "display_name": ServiceName + "Entry",
+			          "destination_ports": [
+			              portNum
+			          ],
+			          "l4_protocol": proto
+			      }
+			  ]
+			}			
+		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
+		print(ServiceName," proto: ",proto," port: ",portNum)
+		print(svcAdd.text)
+		print(addService)
+
+# 	Routine to handle service with more than one service entry
+	else:
+		item = line[1]
+		proto = item[0:3]
+		port = item[3:]
+		portNum = port.strip("()")
+		data = {
+			  "description": ServiceName,
+			  "display_name": ServiceName,
+			  "_revision": 1,
+			  "service_entries": [
+			      {
+			          "resource_type": "L4PortSetServiceEntry",
+			          "display_name": ServiceName + "Entry",
 			          "destination_ports": [
 			              portNum
 			          ],
@@ -72,7 +80,7 @@ for line in data_lines:
 			  ]
 			}
 
-		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
+#		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
 		print(ServiceName," proto: ",proto," port: ",portNum)
 
 		for item in line[1:]:
@@ -82,11 +90,11 @@ for line in data_lines:
 			data = {
 				  "description": ServiceName,
 				  "display_name": ServiceName,
-				  "_revision": 0,
+				  "_revision": 2,
 				  "service_entries": [
 				      {
 				          "resource_type": "L4PortSetServiceEntry",
-				          "display_name": "MyHttpEntry",
+				          "display_name": ServiceName + "Entry",
 				          "destination_ports": [
 				              portNum
 				          ],
@@ -95,7 +103,7 @@ for line in data_lines:
 				  ]
 				}		
 			
-			svcAdd = requests.patch(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)	
+#			svcAdd = requests.patch(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)	
 			print(ServiceName," proto: ",proto," port: ",portNum)
 
 data_file.close()
