@@ -28,7 +28,7 @@ for line in data_lines:
 	print("Service name: ",ServiceName," ","Service Entries: ",serviceEntries)
 	
 	addService = urlNSX + "/global-manager/api/v1/global-infra/services/" + ServiceName
-	appendService = urlNSX + "/global-manager/v1/global-infra/services/" + ServiceName
+	
 
 	Headers = {"Content-Type": "application/json"}
 
@@ -45,7 +45,7 @@ for line in data_lines:
 				  "service_entries": [
 				      {
 				          "resource_type": "L4PortSetServiceEntry",
-				          "display_name": item,
+				          "display_name": proto + portNum,
 				          "destination_ports": [
 				              portNum
 				          ],
@@ -55,7 +55,7 @@ for line in data_lines:
 				}			
 		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
 		print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
-		print(svcAdd.text)
+#		print(svcAdd.text)
 		print(addService)
 
 # 	Routine to handle service with more than one service entry
@@ -71,7 +71,7 @@ for line in data_lines:
 				  "service_entries": [
 				      {
 				          "resource_type": "L4PortSetServiceEntry",
-				          "display_name": item,
+				          "display_name": proto + portNum,
 				          "destination_ports": [
 				              portNum
 				          ],
@@ -82,28 +82,26 @@ for line in data_lines:
 
 		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
 		print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
+#		print(svcAdd.text)
+		print(addService)
 
 		for item in line[1:]:
 			proto = item[0:3]
 			port = item[3:]
 			portNum = port.strip("()")
-			data = {
-					  "description": ServiceName,
-					  "display_name": ServiceName,
-					  "_revision": 0,
-					  "service_entries": [
-					      {
-					          "resource_type": "L4PortSetServiceEntry",
-					          "display_name": item,
-					          "destination_ports": [
-					              portNum
-					          ],
-					          "l4_protocol": proto
-					      }
-					  ]
+			seName = proto+portNum
+			data2 = {
+					  "resource_type": "L4PortSetServiceEntry",
+					  "display_name": seName,
+					  "destination_ports": [
+					      portNum
+					  ],
+					  "l4_protocol": port
 					}		
-			
-			svcAdd = requests.put(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)	
+			appendServiceEntry = urlNSX + "/global-manager/v1/global-infra/services/" + ServiceName + "/service-entries/" + proto + portNum
+			svcAdd = requests.patch(appendServiceEntry, auth=(userNSX,passwordNSX), verify = False, json = data2, headers = Headers)	
 			print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
+#			print(svcAdd.text)
+			print(appendServiceEntry)
 
 data_file.close()
