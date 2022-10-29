@@ -28,12 +28,7 @@ for line in data_lines:
 	print("Service name: ",ServiceGrpName," ","Service Entries: ",serviceEntries)
 
 	addService = urlNSX + "/global-manager/api/v1/global-infra/services/" + ServiceGrpName
-	findservice = urlNSX + "/policy/api/v1/global-infra/services/"
 	Headers = {"Content-Type": "application/json"}
-
-#	find existing service entry for services
-
-
 
 # 	Routine to handle service with only one service entry
 	if serviceEntries == 1:
@@ -54,8 +49,6 @@ for line in data_lines:
 			}			
 		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
 		print(ServiceGrpName," service: ",service," display_name: ",service)
-		print(addService)
-		print(svcAdd)
 		exit
 
 # 	Routine to handle service with more than one service entry
@@ -78,7 +71,5 @@ for line in data_lines:
 
 			svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data2, headers = Headers)
 			print(ServiceGrpName," service: ",service)
-			print(addService)
-			print(svcAdd)
 
 data_file.close()
