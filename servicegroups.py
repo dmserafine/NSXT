@@ -14,7 +14,7 @@ import requests
 # urlNSX = input("Enter the FQDN of the NSX manager API: ")
 # userNSX = input("Enter the Policy API username for NSX: ")
 # passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
-urlNSX = 'https://nsxtlmg.serafine.home'
+urlNSX = 'https://nsxtgm.serafine.home'
 userNSX = 'admin'
 passwordNSX ='brg*zwc1vwm3kuc2XNR'
 
@@ -23,12 +23,11 @@ data_file = open('servicegroupdata.txt','r')
 data_lines = csv.reader(data_file)
 
 for line in data_lines:
-	ServiceName = line[0]
+	ServiceGrpName = line[0]
 	serviceEntries = len(line) - 1
-	print("Service name: ",ServiceName," ","Service Entries: ",serviceEntries)
-	
-	addService = urlNSX + "/policy/api/v1/infra/services/" + ServiceName
-	appendService = urlNSX + "/policy/api/v1/infra/services/" + ServiceName
+	print("Service name: ",ServiceGrpName," ","Service Entries: ",serviceEntries)
+
+	addService = urlNSX + "/global-manager/api/v1/global-infra/services/" + ServiceGrpName
 	findservice = urlNSX + "/policy/api/v1/global-infra/services/"
 	Headers = {"Content-Type": "application/json"}
 
@@ -37,61 +36,49 @@ for line in data_lines:
 
 
 # 	Routine to handle service with only one service entry
-	item = line[1]
-	
-	data = {
-		  "description": ServiceName,
-		  "display_name": ServiceName,
-		  "_revision": 0,
-		  "service_entries": [
-		      {
-		          "resource_type": "NestedServiceServiceEntry",
-		          "display_name": ServiceName + "Entry",
-		          "children": item
-		      }
-		  ]
-		}			
-	svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-	print(ServiceName," proto: ",proto," port: ",portNum)
-	exit
+	if serviceEntries == 1:
+		service = line[1]
+		seName = service + "entry"
+		nestedPath = "/global-infra/services/" + service
+		data = {
+			  "description": ServiceGrpName,
+			  "display_name": ServiceGrpName,
+			  "_revision": 0,
+			  "service_entries": [
+			      {
+			          "resource_type": "NestedServiceServiceEntry",
+			          "display_name": seName,
+			          "nested_service_path": nestedPath
+			      }
+			  ]
+			}			
+		svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
+		print(ServiceGrpName," service: ",service," display_name: ",service)
+		print(addService)
+		print(svcAdd)
+		exit
+
 # 	Routine to handle service with more than one service entry
 	else:
-		item = line[1]:
-
-		data = {
-			  "description": ServiceName,
-			  "display_name": ServiceName,
+		for service in line[1:]:
+			seName = service + "entry"
+			nestedPath = "/global-infra/services/" + service
+			data2 = {
+			  "description": ServiceGrpName,
+			  "display_name": ServiceGrpName,
 			  "_revision": 0,
 			  "service_entries": [
 			      {
 		          "resource_type": "NestedServiceServiceEntry",
-		          "display_name": ServiceName + "Entry",
-		          "children": item
+		          "display_name": seName,
+		          "nested_service_path": nestedPath
 			      }
 			  ]
-			}
+			}		
 
-		svcAdd = requests.put(addService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-		print(ServiceName," proto: ",proto," port: ",portNum)
-
-		for item in line[1:]:
-			proto = item[0:3]
-			port = item[3:]
-			portNum = port.strip("()")
-			data = {
-				  "description": ServiceName,
-				  "display_name": ServiceName,
-				  "_revision": 1,
-				  "service_entries": [
-				      {
-		          "resource_type": "NestedServiceServiceEntry",
-		          "display_name": ServiceName + "Entry",
-		          "children": item
-				      }
-				  ]
-				}		
-			
-			svcAdd = requests.patch(appendService, auth=(userNSX,passwordNSX), verify = False, json = data, headers = Headers)
-			print(ServiceName," proto: ",proto," port: ",portNum)
+			svcAdd = requests.patch(addService, auth=(userNSX,passwordNSX), verify = False, json = data2, headers = Headers)
+			print(ServiceGrpName," service: ",service)
+			print(addService)
+			print(svcAdd)
 
 data_file.close()
