@@ -13,14 +13,11 @@ import requests
 import json
 
 ## uncomment for user input
-## urlNSX = input("Enter the FQDN of the NSX manager API? ")
-## userNSX = input("Enter the Policy API username for NSX? ")
-## passwordNSX = input("Enter the password for the NSX user? ")
+urlNSX = input("Enter the FQDN of the NSX manager API: ")
+userNSX = input("Enter the Policy API username for NSX: ")
+passwordNSX = input("Enter the password for the NSX user: ")
 
-urlNSX = 'https://nsxtgm.serafine.home'
-userNSX = 'admin'
-passwordNSX ='brg*zwc1vwm3kuc2XNR'
-
+# domainID = input("Enter the domain where the groups will be located: ")
 domainID = 'default'
 
 data_file = open('tagdata.txt','r')
