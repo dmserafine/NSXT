@@ -54,7 +54,7 @@ Instal/Upgrade json module
 pip install --upgrade json
 ```
 
-##### 2. Installation
+##### 2. Execution of scripts
 
 Place script in the same directory as the data file
 
