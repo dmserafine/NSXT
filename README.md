@@ -55,7 +55,7 @@ pip install --upgrade json
 ```
 
 ##### 2. Installation
-```
+
 Place script in the same directory as the data file
 
 ## Run SDK Samples
