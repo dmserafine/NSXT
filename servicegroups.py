@@ -9,14 +9,12 @@
 import csv
 import json
 import requests
+import getpass
 
-# uncomment for user input of NSX LM URL, Username and password
-# urlNSX = input("Enter the FQDN of the NSX manager API: ")
-# userNSX = input("Enter the Policy API username for NSX: ")
-# passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
-urlNSX = 'https://nsxtgm.serafine.home'
-userNSX = 'admin'
-passwordNSX ='brg*zwc1vwm3kuc2XNR'
+uncomment for user input of NSX LM URL, Username and password
+urlNSX = input("Enter the FQDN of the NSX manager API: ")
+userNSX = input("Enter the Policy API username for NSX: ")
+passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
 
 data_file = open('servicegroupdata.txt','r')
 
