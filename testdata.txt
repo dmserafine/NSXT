@@ -1,0 +1,5 @@
+Exchange,web,email,prod
+EPIC,db,prod
+EPIC_Test,db,test
+ABC,web,prod,db,app,vip
+DaveTEST,ONE
