@@ -1,0 +1,6 @@
+VCSA,DC1,web,prd,epic
+NSXV,DC1,AD,prd
+AVI,DC2,AD,nprd
+Router1,DC1,NET
+Router2,DC2,NET
+DNS-TEMP,prd
