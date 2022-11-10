@@ -1,0 +1,4 @@
+icmp.svcg,icmp_unreachable,icmp_echo_reply
+dns.svcg,DNSTCP,DNSUDP
+prd.svcg,MYFTP,MYSMTP,PRD.HTTPS
+test.one,MYFTP
