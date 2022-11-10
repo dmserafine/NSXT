@@ -5,7 +5,7 @@
 - [Abstract](#abstract)
 - [Supported NSX-T Releases](#supported-nsx-t-releases)
 - [Quick Start Guide](#quick-start-guide)
-- [Script Files](#Contents-Scripts)
+- [Script Files]()
 - [Example Data Files](#Contents-Example-Data-Files)
 - [Run SDK Samples](#run-sdk-samples)
 - [API Documentation](#api-documentation)
@@ -21,7 +21,7 @@ NSX-T 3.2
 
 ## Quick Start Guide
 
-## Contents - Scripts
+## Contents Scripts
 1. NAT.py - This script applies gateway NAT rules in bulk to either a T0 or T1 gateway router
 2. Secgrpipaddr.py - This script applies ipaddresses in bulk to security groups for membership
 3. Secgrptag2.py - This script applies security tags to security groups for membership
@@ -29,7 +29,7 @@ NSX-T 3.2
 5. Servicegroups.py - Creates service groups with service membership
 6. Tagvms.py - Tags VM wih one or more security tags
 
-## Contents - Example Data Files
+## Contents Example Data Files
 1. nat.txt - example data file for Nat.py
 2. testipdata.txt - example data for file Secgrpipaddr.py
 3. testdata.txt - example data file for Segrptag2.py
