@@ -5,7 +5,7 @@
 - [Abstract](#abstract)
 - [Supported NSX-T Releases](#supported-nsx-t-releases)
 - [Quick Start Guide](#quick-start-guide)
-- [Script Files]()
+- [Script Files](#Contents-Scripts)
 - [Example Data Files](#Contents-Example-Data-Files)
 - [Run SDK Samples](#run-sdk-samples)
 - [API Documentation](#api-documentation)
