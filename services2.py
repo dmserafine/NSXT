@@ -98,7 +98,7 @@ for line in data_lines:
 					}		
 			appendServiceEntry = urlNSX + "/global-manager/api/v1/global-infra/services/" + ServiceName + "/service-entries/" + seName
 			svcAdd = requests.patch(appendServiceEntry, auth=(userNSX,passwordNSX), verify = False, json = data2, headers = Headers)	
-			print(ServiceName,seName,data2,appendServiceEntry," item: ",item," proto: ",proto," port: ",portNum)
+			print(ServiceName," item: ",item," proto: ",proto," port: ",portNum)
 
 
 data_file.close()
