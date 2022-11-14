@@ -9,6 +9,7 @@
 import csv
 import json
 import requests
+import getpass
 
 # uncomment for user input of NSX LM URL, Username and password
 # urlNSX = input("Enter the FQDN of the NSX manager API: ")
