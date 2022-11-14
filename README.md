@@ -24,8 +24,8 @@ NSX-T 3.2
 ## Contents Scripts
 1. NAT.py - This script applies gateway NAT rules in bulk to either a T0 or T1 gateway router
 2. Secgrpipaddr.py - This script applies ipaddresses in bulk to security groups for membership
-3. Secgrptag2.py - This script applies security tags to security groups for membership
-4. Services.py - Creates services with protocol(port) service definitions
+3. Secgrptag2.py - This script applies security tags to security groups for membership - deprecated Secgrptag.py
+4. Services2.py - Creates services with protocol(port) service definitions - deprecated services.py
 5. Servicegroups.py - Creates service groups with service membership
 6. Tagvms.py - Tags VM wih one or more security tags
 
