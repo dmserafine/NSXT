@@ -16,7 +16,7 @@ import getpass
 ## uncomment for user input
 urlNSX = input("Enter the FQDN of the NSX manager API: ")
 userNSX = input("Enter the Policy API username for NSX: ")
-passwordNSX = input("Enter the password for the NSX user: ")
+passwordNSX = getpass.getpass("Enter the password for the NSX user: ")
 
 # domainID = input("Enter the domain where the groups will be located: ")
 domainID = 'default'
