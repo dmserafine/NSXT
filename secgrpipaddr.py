@@ -36,7 +36,7 @@ for line in data_lines:
 				"_revision":0
 			}
 
-	addSecGrp = requests.put(addSecGrpUrl, auth=(userNSX,passwordNSX), verify = False, json = sgdata, headers = Headers)
+	addSecGrp = requests.patch(addSecGrpUrl, auth=(userNSX,passwordNSX), verify = False, json = sgdata, headers = Headers)
 	
 	print('Security Group: ',Secgrp)
 	ips = len(line) - 1
