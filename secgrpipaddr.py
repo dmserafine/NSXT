@@ -12,7 +12,7 @@ import json
 import getpass
 
 # uncomment for user input of NSX LM URL, Username and password
-urlNSX = input("Enter the FQDN of the NSX manager API: ")
+# urlNSX = input("Enter the FQDN of the NSX manager API: ")
 urlGNSX = input("Enter the FQDN of the Global NSX manager API: ")
 userNSX = input("Enter the Policy API username for NSX: ")
 passwordNSX = getpass.getpass('Enter the password for the NSX user: ')
@@ -24,9 +24,11 @@ data_file = open('testIPData.txt','r')
 
 data_lines = csv.reader(data_file)
 
+Headers = {"Content-Type": "application/json"}
+
 for line in data_lines:
 	Secgrp = line[0]
-	addSecGrpUrl = urlGNSX + "/policy/api/v1/global-infra/domains/" + domainID + "/groups/" + Secgrp
+	addSecGrpUrl = urlGNSX + "/global-manager/api/v1/global-infra/domains/" + domainID + "/groups/" + Secgrp
 
 	sgdata = {
 				"description": Secgrp,
@@ -43,7 +45,7 @@ for line in data_lines:
 	expressID = Secgrp + "ipset"
 	addIPUrl = urlNSX + "/global-manager/api/v1/global-infra/domains/" + domainID + "/groups/" + Secgrp + "/ip-address-expressions/" + expressID
 	appendIPUrl = urlNSX + "/global-manager/api/v1/global-infra/domains/" + domainID + "/groups/" + Secgrp + "/ip-address-expressions/" + expressID + "?action=add"
-	Headers = {"Content-Type": "application/json"}
+	
 
 	if len(line) == 2:
 		print('Only one IP')
