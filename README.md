@@ -37,7 +37,7 @@ NSX-T 3.2
 4. servicedata.txt - example data file for Services.py
 5. serviegroupdata.txt - example data file for Servicegroups.py
 6. vmtestdata - example data file for Tagvms.py
-7. ruledata.xlsx - sample data for Rules2.py
+7. ruledata.xlsx - sample data for Rules2.py - not debugged - USE AT YOUR OWN RISK!
 
 ### Prepare a Python Development Environment
 
