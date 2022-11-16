@@ -28,7 +28,7 @@ NSX-T 3.2
 4. Services2.py - Creates services with protocol(port) service definitions - deprecated services.py
 5. Servicegroups.py - Creates service groups with service membership
 6. Tagvms.py - Tags VM wih one or more security tags
-7. Rules2.py - create DFW rules in bulk with minor limitations
+7. Rules2.py - create DFW rules in bulk with minor limitations - not debugged - USE AT YOUR OWN RISK!
 
 ## Contents Example Data Files
 1. nat.txt - example data file for Nat.py
