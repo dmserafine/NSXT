@@ -2,7 +2,7 @@
 ### NOTE: This script uses Python3 to creat a rule per row in a source excel
 ###       The script takes the entire worksheet as a data array
 ###		  from a file named "ruledata.xlsx"
-###		  Column headers should be in order:category,policysection,rulename,sources,destinations,services,action,applyto
+###		  Column headers should be in order:sequence,category,policysection,rulename,sources,destinations,services,action,applyto
 ###		  This script does not use applyto for today - future product enhancement
 ###		  This script places security rules in the default domain 
 ###		  The URL is for a Global Manager and Global groups
@@ -31,6 +31,7 @@ data_file = pd.read_excel('ruledata.xlsx')
 
 # headers for columns in data file in order, exact name follows "row."
 for row in data_file.itertuples():
+	sequencenum = row.sequence
 	category = row.category
 	section = row.policysection
 	name = row.rulename
