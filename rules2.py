@@ -170,7 +170,7 @@ for row in data_file.itertuples():
 	print(data)	
 
 # URL used to add or create rules
-	addruleurl = userNSX + "/global-manager/api/v1/infra/domains/" + domainID + "/security-policies/" + section + "/rules/" name
+	addruleurl = userNSX + "/global-manager/api/v1/infra/domains/" + domainID + "/security-policies/" + section + "/rules/" + name
 
 	print(addruleurl)
 
