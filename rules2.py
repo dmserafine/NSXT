@@ -55,11 +55,11 @@ for row in data_file.itertuples():
 
 # converts multiple entries in source, destination and service field to JSON format list
 	sourcelist = source.strip(" ").split(",")
-	sourcedata = "any"
+	sourcedata = []
 	destinationlist = destination.strip(" ").split(",")
-	destinationdata = "any"
+	destinationdata = []
 	servicelist = service.strip(" ").split(",")
-	servicedata = "any"
+	servicedata = []
 
 # check to see if section exists
 	item_found = False
@@ -109,8 +109,6 @@ for row in data_file.itertuples():
 
 # If multiple entries exists check if each entry is valid and combine to array
 		else:
-			if sourcedata == "any":
-				sourcedata = []
 			getgroup = requests.get(getgroupsurl, auth=(userNSX,passwordNSX), verify=False, headers = Headers)
 			groupdata = getgroup.json()
 			for group in groupdata['results']:
@@ -152,8 +150,6 @@ for row in data_file.itertuples():
 
 # If multiple entries exists check if each entry is valid and combine to array
 		else:
-			if destinationdata =="any":
-				destinationdata = []
 			getgroup = requests.get(getgroupsurl, auth=(userNSX,passwordNSX), verify=False, headers = Headers)
 			groupdata = getgroup.json()
 			for group in groupdata['results']:
@@ -195,7 +191,6 @@ for row in data_file.itertuples():
 
 # If multiple entries exists check if each entry is valid and combine to array
 		else:
-			servicedata = []
 			getservice = requests.get(getserviceurl, auth=(userNSX,passwordNSX), verify=False, headers = Headers)
 			servicejson = getservice.json()
 			for service in servicejson['results']:
@@ -211,9 +206,9 @@ for row in data_file.itertuples():
 				print("Item not found: ",sequencenum,": ",item, file=error_file)
 
 	if sourcedata == []:
-		sourcedata = ["any"]
+		sourcedata = "any"
 	if destinationdata == []:
-		destinationdata = ["any"]
+		destinationdata = "any"
 	if servicedata == []:
 		servicedata = ["any"]
 
