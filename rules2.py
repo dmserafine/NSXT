@@ -68,7 +68,7 @@ for row in data_file.itertuples():
 	for section in sectiondata['results']:
 		sectionName = section['display_name']
 		sectionID = section['id']
-		if section == serviceName:
+		if sections == sectionName:
 			item_found = True
 		else:
 			sectiondata = {
@@ -210,6 +210,10 @@ for row in data_file.itertuples():
 			if item_found == False:
 				print("Item not found: ",sequencenum,": ",item, file=error_file)
 
+	if sourcedata == []:
+		sourcedata = ["any"]
+	if destinationdata == []:
+		destinationdata = ["any"]
 	if servicedata == []:
 		servicedata = ["any"]
 
