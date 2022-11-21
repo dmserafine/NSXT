@@ -22,13 +22,14 @@ NSX-T 3.2
 ## Quick Start Guide
 
 ## Contents Scripts
-1. NAT.py - This script applies gateway NAT rules in bulk to either a T0 or T1 gateway router
-2. Secgrpipaddr.py - This script applies ipaddresses in bulk to security groups for membership
-3. Secgrptag2.py - This script applies security tags to security groups for membership - deprecated Secgrptag.py
-4. Services2.py - Creates services with protocol(port) service definitions - deprecated services.py
-5. Servicegroups.py - Creates service groups with service membership
-6. Tagvms.py - Tags VM wih one or more security tags
-7. Rules2.py - create DFW rules in bulk with minor limitations - not debugged - USE AT YOUR OWN RISK!
+1. nat.py - This script applies gateway NAT rules in bulk to either a T0 or T1 gateway router
+2. secgrpipaddr.py - This script applies ipaddresses in bulk to security groups for membership
+3. secgrptag2.py - This script applies security tags to security groups for membership - deprecated Secgrptag.py
+4. services2.py - Creates services with protocol(port) service definitions - deprecated services.py
+5. servicegroups.py - Creates service groups with service membership
+6. tagvms.py - Tags VM wih one or more security tags
+7. rules2.py - create DFW rules in bulk with minor limitations
+8. secgrps.py - create empty security groups in bulk
 
 ## Contents Example Data Files
 1. nat.txt - example data file for Nat.py
