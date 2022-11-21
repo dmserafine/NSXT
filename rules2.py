@@ -18,10 +18,14 @@ import json
 import getpass
 import pandas as pd
 
-# user input
-urlNSX = input("Enter the FQDN of the NSX manager API? ")
-userNSX = input("Enter the Policy API username for NSX? ")
-passwordNSX = getpass.getpass("Enter the password for the NSX user? ")
+## uncomment for user input
+## urlNSX = input("Enter the FQDN of the NSX manager API? ")
+## userNSX = input("Enter the Policy API username for NSX? ")
+## passwordNSX = getpass.getpass("Enter the password for the NSX user? ")
+
+urlNSX = 'https://nsxtgm.serafine.home'
+userNSX = 'admin'
+passwordNSX ='brg*zwc1vwm3kuc2XNR'
 
 domainID = 'default'
 
@@ -95,7 +99,7 @@ for row in data_file.itertuples():
 					groupName = group['display_name']
 					groupPath = group['path']
 					if item == groupName:
-						sourcedata = groupPath
+						sourcedata = [groupPath]
 						item_found = True
 
 # If group does not exist print out rule sequence number and group name							
@@ -111,7 +115,7 @@ for row in data_file.itertuples():
 				groupName = group['display_name']
 				groupPath = group['path']
 				if item == groupName:
-					sourceentry = groupPath
+					sourceentry = groupPath.replace("'",'"')
 					sourcedata.append(sourceentry)
 					item_found = True
 
@@ -137,7 +141,7 @@ for row in data_file.itertuples():
 					groupName = group['display_name']
 					groupPath = group['path']
 					if item == groupName:
-						destinationdata = groupPath
+						destinationdata = [groupPath]
 						item_found = True
 
 # If group does not exist print out rule sequence number and group name							
@@ -151,8 +155,8 @@ for row in data_file.itertuples():
 			for group in groupdata['results']:
 				groupName = group['display_name']
 				groupPath = group['path']
-				if item == groupName:
-					destinationentry = groupPath
+				if item == domainName:
+					destinationentry = domainPath
 					destinationdata.append(destinationentry)
 					item_found = True
 
@@ -202,11 +206,15 @@ for row in data_file.itertuples():
 				print("Item not found: ",sequencenum,": ",item, file=error_file)
 
 	if sourcedata == []:
-		sourcedata = "any"
+		sourcedata = ["any"]
 	if destinationdata == []:
-		destinationdata = "any"
+		destinationdata = ["any"]
 	if servicedata == []:
 		servicedata = ["any"]
+	if destinationdata == 'any':
+		destinationdata = ["any"]
+	if sourcedata == 'any':
+		sourcedata = ["any"]
 
 # build data array for each rule
 	data = {
@@ -216,8 +224,8 @@ for row in data_file.itertuples():
 		  "display_name": name,
 #		  "rule_id": ruleid,
 		  "sequence_number": sequencenum,
-		  "source_groups": [sourcedata],
-		  "destination_groups": [destinationdata],
+		  "source_groups": sourcedata,
+		  "destination_groups": destinationdata,
 		  "services": servicedata,
 		  "profiles": ["any"],
 		  "logged": 'true',		  		  	  
