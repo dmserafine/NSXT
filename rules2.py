@@ -155,8 +155,8 @@ for row in data_file.itertuples():
 			for group in groupdata['results']:
 				groupName = group['display_name']
 				groupPath = group['path']
-				if item == domainName:
-					destinationentry = domainPath
+				if item == groupName:
+					destinationentry = groupPath
 					destinationdata.append(destinationentry)
 					item_found = True
 
