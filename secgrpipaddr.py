@@ -28,17 +28,7 @@ Headers = {"Content-Type": "application/json"}
 
 for line in data_lines:
 	Secgrp = line[0]
-	addSecGrpUrl = urlGNSX + "/global-manager/api/v1/global-infra/domains/" + domainID + "/groups/" + Secgrp
 
-	sgdata = {
-				"description": Secgrp,
-				"display_name": Secgrp,
-				"_revision":0
-			}
-
-	addSecGrp = requests.patch(addSecGrpUrl, auth=(userNSX,passwordNSX), verify = False, json = sgdata, headers = Headers)
-	
-	print('Security Group: ',Secgrp)
 	ips = len(line) - 1
 	print('Number of IP Adresses: ', ips)
 
