@@ -241,3 +241,6 @@ for row in data_file.itertuples():
 
 	print(addrule.text, file = trbl_file)
 	
+data_file.close()
+trbl_file.close()
+error_file.close()
